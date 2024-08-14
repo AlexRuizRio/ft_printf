@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 11:24:36 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/14 12:40:17 by alruiz-d         ###   ########.fr       */
+/*   Created: 2024/08/14 12:42:45 by alruiz-d          #+#    #+#             */
+/*   Updated: 2024/08/14 12:45:33 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+int ft_strlens (const char *str)
+{
+    int len;
+    
+    if(str == NULL)
+        return (0);
+    len = 0;
+    while(*str)
+    {
+        len++;
+        str++;
+    }
+     return (len);
+    
+}
 
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h> 
-# include "libft/libft.h"
+int	ft_print_str(char *s)
+{
+	int	len;
 
-int ft_printf(const char *format, ...);
-static int conversions (const char ptr, va_list args);
-int	ft_print_str(char *s);
-int ft_print_char ( char c);
-
-#endif
+    len = 0;
+    if(s == NULL)
+    {
+        return (ft_print_str("(null)"));
+    }
+	len = ft_strlens(s);
+	write(1, s, len);
+    return (len);
+}
