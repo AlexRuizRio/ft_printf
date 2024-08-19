@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hexa.c                                    :+:      :+:    :+:   */
+/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 11:21:02 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/19 13:26:30 by alruiz-d         ###   ########.fr       */
+/*   Created: 2024/08/14 12:44:07 by alruiz-d          #+#    #+#             */
+/*   Updated: 2024/08/19 15:14:25 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_put_hexa(unsigned int num, const char format);
+static int	ft_len_pointer(uintptr_t num);
+static void	ft_put_pointer(uintptr_t num);
 
-int	ft_print_hexa(unsigned int num, const char format)
+int	ft_print_pointer(void *p)
+{
+	uintptr_t	pointer;
+	int			len;
+
+	pointer = (uintptr_t)p;
+	len = write(1, "0x", 2);
+	if (pointer == 0)
+		len = write(1, "0", 1);
+	else
+	{
+		ft_put_pointer(pointer);
+		len += ft_len_pointer(pointer);
+	}
+	return (len);
+}
+
+static int	ft_len_pointer(uintptr_t num)
 {
 	int	len;
 
-	if (num == 0)
-	{
-		return (write(1, "0", 1));
-		return (1);
-	}
 	len = 0;
-	ft_put_hexa(num, format);
 	while (num)
 	{
 		num = num / 16;
@@ -33,23 +45,18 @@ int	ft_print_hexa(unsigned int num, const char format)
 	return (len);
 }
 
-static void	ft_put_hexa(unsigned int num, const char format)
+static void	ft_put_pointer(uintptr_t num)
 {
 	if (num >= 16)
 	{
-		ft_put_hexa (num / 16, format);
-		ft_put_hexa (num % 16, format);
+		ft_put_pointer(num / 16);
+		ft_put_pointer(num % 16);
 	}
 	else
 	{
 		if (num <= 9)
 			ft_print_char(num + '0');
 		else
-		{
-			if (format == 'X')
-				ft_print_char(num - 10 + 'A');
-			if (format == 'x')
-				ft_print_char(num - 10 + 'a');
-		}
+			ft_print_char(num - 10 + 'a');
 	}
 }
