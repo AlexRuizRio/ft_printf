@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:44:07 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/19 17:24:00 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:27:24 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,31 @@ static int	len_int(long num)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char *ft_itoa(int n)
 {
-	char	*str;
-	long	len;
+    char *str;
+    long len;
+    long num;
 
-	len = ft_intlen(n);
-	str = ft_calloc(len + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	if (n == 0)
-		str[0] = '0';
-	str[len] = '\0';
-	while (n != 0 && n != -2147483648)
-	{
-		len--;
-		str[len] = (n % 10) + '0';
-		n = n / 10;
-	}
-	if (n < 0)
-			str[len] = '-';
-	return (str);
+    num = n;
+    len = len_int(n);  
+    str = malloc(sizeof(char) * (len + 1));
+    if (!str)
+        return (NULL);
+    if (n < 0)
+        num = -num;  
+    str[len] = '\0';  
+    if (n == 0)
+        str[0] = '0';
+    else
+    {
+        while (len-- > 0)
+        {
+            str[len] = (num % 10) + '0';  
+            num = num / 10;
+        }
+        if (n < 0)
+            str[0] = '-';  
+    }
+    return (str);
 }

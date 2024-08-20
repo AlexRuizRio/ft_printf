@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 11:24:51 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/19 18:49:34 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:41:02 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int			ft_putstr(char *s);
 static void	ft_put_hexa(unsigned int num, const char format);
 static int	len_int(long num);
 char	    *ft_itoa(int n);
+static int	len_unsigned(long num);
+static char *ft_itoa_unsig(unsigned int num);
 
 int	ft_printf(const char *format, ...)
 {
@@ -58,7 +60,7 @@ static int	conversions(const char ptr, va_list args)
 	else if (ptr == 'd' || ptr == 'i')
 		return (ft_print_int(va_arg(args, int)));
 	else if (ptr == 'u')
-		return (0);
+		return (ft_print_unsigned(va_arg(args, unsigned int)));
 	else if (ptr == 'x' || ptr == 'X')
 		return (ft_print_hexa(va_arg(args, unsigned int), ptr));
 	return (0);
@@ -239,12 +241,68 @@ char *ft_itoa(int n)
     }
     return (str);
 }
+
+int	ft_print_unsigned(unsigned int num)
+{
+    int		len;
+    char	*result;
+	
+	len = 0;
+	if  (num == 0)
+		len = write (1, "0", 1);
+	else
+	{
+		result = ft_itoa_unsig(num);
+		len = ft_print_str(result);
+		free(result);
+	}
+	return (len);
+}
+
+static int	len_unsigned(long num)
+{
+	int	len;
+
+	len = 0;
+	if (num == 0)
+		return (1);
+	while (num != 0)
+	{
+		num = num / 10;
+		len++;
+	}
+	return (len);
+}
+
+static char *ft_itoa_unsig(unsigned int num)
+{
+	char	*str;
+	long	len;
+
+	len = len_unsigned(num);
+	str = malloc(sizeof(char) * len + 1);
+	if(!str)
+		return (NULL);
+	if (len == 0)
+		str[0] = '0';
+	str[len] = '\0';
+	while (num != 0)
+	{
+		--len;
+		str[len] = (num % 10) + '0';
+		num = num / 10;	
+	}
+	return (str);
+}
+
 int main()
 {
     ft_print_char('a');
     ft_print_char('\n');
-    int intprintf = printf("esto es una prueba %d \n", -214783648);
-    int intftprintf = ft_printf("esto es una prueba %d \n", -2147483648);
+    ft_printf("Esto es una prueba \n");
+    printf("Esto es una prueba \n");
+    int intprintf = printf("esto es una prueba %d \n", -2147483647);
+    int intftprintf = ft_printf("esto es una prueba %d \n", -2147483647);
     char *str = "estamos probando";
     int printtfi = ft_printf("Estoy probando %c asi que %c esperar \n", 'a', 'a');
     int printi = printf("Estoy probando %c asi que %c esperar \n", 'a', 'a');
@@ -261,11 +319,15 @@ int main()
     int printfput = ft_printf("Imprimiendo un puntero: %p \n", str);
     int printput = printf("Imprimiendo un puntero: %p \n", str);
 
+    int printfu = ft_printf("Imprimiendo un numero unsigned: %u \n", -2024);
+    int printu = printf("Imprimiendo un numero unsigned: %u \n", -2024);
+    
     ft_printf("INTEGER: el numero en printf es %d y el numero en ft_printf es %d \n", intprintf, intftprintf);
     ft_printf("PORCENTAJE: el numero en printf es %d y el numero en ft_printf es %d \n", printper, printfper);
     ft_printf("STRING: el numero en printf es %d y el numero en ft_printf es %d \n", print, printtf);
     ft_printf("CHAR: el numero en printf es %d y el numero en ft_printf es %d \n", printi, printtfi);
     ft_printf("HEXADECIMAL: el numero en printf es %d y el numero en ft_printf es %d \n", printhex, printfhex);
 	ft_printf("PUNTERO: el numero en printf es %d y el numero en ft_printf es %d \n", printput, printfput);
+    ft_printf("UNSIGNED: el numero en printf es %d y el numero en ft_printf es %d \n", printu, printfu);
     return (0);
 }
