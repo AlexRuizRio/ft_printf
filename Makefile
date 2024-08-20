@@ -12,12 +12,12 @@ SRCS = ft_print_char.c ft_print_hexa.c ft_print_int.c\
 		ft_print_pointer.c ft_print_str.c ft_print_unsigned.c\
 		ft_printf.c
 
-OBJS = $($SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR)$@$^
+	$(AR) $@ $^
 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -31,5 +31,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
-

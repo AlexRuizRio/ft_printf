@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 11:24:36 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/20 12:39:41 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:21:00 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 # include <stdint.h>
 
 int			ft_printf(const char *format, ...);
-static int	conversions(const char ptr, va_list args);
 int			ft_print_str(char *s);
 int			ft_print_char( char c);
 int			ft_print_hexa(unsigned int num, const char format);
 int			ft_print_pointer(void *p);
-int	        ft_print_int (int num);
-int         ft_print_unsigned(unsigned int num);
+int			ft_print_int(int num);
+int			ft_print_unsigned(unsigned int num);
 
 #endif

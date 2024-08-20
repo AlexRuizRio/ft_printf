@@ -6,22 +6,22 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:42:45 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/20 12:35:15 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:05:41 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static int	len_unsigned(long num);
-static char *ft_itoa_unsig(unsigned int num);
+static char	*ft_itoa_unsig(unsigned int num);
 
 int	ft_print_unsigned(unsigned int num)
 {
-    int		len;
-    char	*result;
-	
+	char	*result;
+	int		len;
+
 	len = 0;
-	if  (num == 0)
+	if (num == 0)
 		len = write (1, "0", 1);
 	else
 	{
@@ -47,14 +47,14 @@ static int	len_unsigned(long num)
 	return (len);
 }
 
-static char *ft_itoa_unsig(unsigned int num)
+static char	*ft_itoa_unsig(unsigned int num)
 {
 	char	*str;
 	long	len;
 
 	len = len_unsigned(num);
 	str = malloc(sizeof(char) * len + 1);
-	if(!str)
+	if (!str)
 		return (NULL);
 	if (len == 0)
 		str[0] = '0';
@@ -63,7 +63,7 @@ static char *ft_itoa_unsig(unsigned int num)
 	{
 		--len;
 		str[len] = (num % 10) + '0';
-		num = num / 10;	
+		num = num / 10;
 	}
 	return (str);
 }
