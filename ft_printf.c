@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 11:24:51 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/20 15:21:06 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:10:44 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	ft_printf(const char *format, ...)
 	ptr = format;
 	while (*ptr)
 	{
-		if (*ptr == '%' && *(ptr + 1))
+		if (*ptr == '%')
 		{
 			ptr++;
-			nbytes += conversions(*ptr, args);
+			if(*ptr != '\0')
+				nbytes += conversions(*ptr, args);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:44:07 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/19 15:14:25 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:58:37 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ int	ft_print_pointer(void *p)
 {
 	uintptr_t	pointer;
 	int			len;
-
+	
+	if (p == NULL)
+		return (ft_print_str("(nil)"));
 	pointer = (uintptr_t)p;
 	len = write(1, "0x", 2);
 	if (pointer == 0)
-		len = write(1, "0", 1);
+		len += write(1, "0", 1);
 	else
 	{
 		ft_put_pointer(pointer);
