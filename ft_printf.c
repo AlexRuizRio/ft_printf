@@ -6,7 +6,7 @@
 /*   By: alruiz-d <alruiz-d@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 11:24:51 by alruiz-d          #+#    #+#             */
-/*   Updated: 2024/08/22 18:10:44 by alruiz-d         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:31:48 by alruiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_printf(const char *format, ...)
 		if (*ptr == '%')
 		{
 			ptr++;
-			if(*ptr != '\0')
+			if (*ptr != '\0')
 				nbytes += conversions(*ptr, args);
 		}
 		else
